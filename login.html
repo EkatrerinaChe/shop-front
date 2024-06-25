@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Вход в аккаунт</title>
+    <link rel="stylesheet" href="css/logstyle.css" />
+    <script src="js/validation.js" defer></script>
+    <script src="js/scripts.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap&subset=cyrillic" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="login-form">
+            <h2>Вход в аккаунт</h2>
+            <form id="login-form">
+                <input type="hidden" name="__RequestVerificationToken" value="YourGeneratedAntiForgeryTokenHere" />
+                <div class="text-danger" id="validation-summary"></div>
+                <div class="form-group">
+                    <label for="Username"></label>
+                    <input placeholder="Введите почту" name="email" id="Username" class="input-field" />
+                    <span class="text-danger" id="Username-validation"></span>
+                </div>
+                <div class="form-group">
+                    <label for="Password"></label>
+                    <input placeholder="Введите пароль" type="password" name="password" id="Password" class="input-field" />
+                    <span class="text-danger" id="Password-validation"></span>
+                </div>
+                <button type="button" class="login-button" onclick="submitForm()">Войти</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
