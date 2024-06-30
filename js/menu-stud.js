@@ -198,13 +198,56 @@ document.addEventListener("DOMContentLoaded", function () {
     await renderHomeworkPage();
   });
 
-  gradesLink.addEventListener("click", function (event) {
+  gradesLink.addEventListener("click", async function (event) {
     event.preventDefault();
+
+    const markedSolution = await getMarkedMySolution();
+
     mainContent.innerHTML = `
             <h1>Мои оценки</h1>
             <p>Здесь будет отображаться список ваших оценок.</p>
+            <div class="homework-section">
+            ${markedSolution.map(
+              (solution) => `
+                    <div class="homework-item">
+                        <div class="homework-details">
+                            <h3>${
+                              solution.task.subject
+                                ? solution.task.subject.name
+                                : "Без предмета"
+                            }</h3>
+                            <p class="homework-task"><em>${
+                              solution.task.name
+                            }</em></p>
+                            <p class="homework-description">${
+                              solution.task.desc
+                            }</p>
+                            <p class="homework-dates">
+                                <span>Оценка: ${solution.mark}</span><br>
+                                <span>Комментарий: ${
+                                  solution.comment
+                                    ? solution.comment
+                                    : "Без комментариев"
+                                }</span>
+                            </p>
+                        </div>
+                    </div>
+                `
+            )}
+            </div>
         `;
   });
+
+  async function getMarkedMySolution() {
+    const response = await fetch(`http://localhost:3000/api/tasks/marked`, {
+      method: "GET",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    return await response.json();
+  }
 
   renderHomeworkPage();
 });
