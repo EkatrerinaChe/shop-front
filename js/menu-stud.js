@@ -38,72 +38,159 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const currentTasks = tasks.filter(
-      (task) => new Date(task.dead_line) >= new Date()
+      (task) =>
+        new Date(task.dead_line) >= new Date() &&
+        task.isCurrentUserDidItWork == false
     );
     const expiredTasks = tasks.filter(
       (task) => new Date(task.dead_line) < new Date()
     );
+    const doneTasks = tasks.filter(
+      (task) => task.isCurrentUserDidItWork == true
+    );
 
     mainContent.innerHTML = `
-        <h1>Домашнее задание</h1>
-        <div class="homework-header">
-          <h1>Текущие домашние задания</h1>
-        </div>
-        <div class="homework-section">
-          <h2>Текущие домашние задания</h2>
-          ${currentTasks
-            .map(
-              (task) => `
-                <div class="homework-item">
-                  <div class="homework-details">
-                    <h3>${
-                      task.subject ? task.subject.name : "Без предмета"
-                    }</h3>
-                    <p class="homework-task"><em>${task.name}</em></p>
-                    <p class="homework-description">${task.desc}</p>
-                    <button class="view-works-button" onclick="viewWorks('${
-                      task.id
-                    }')">Загрузить решение</button>
-                    <p class="homework-dates">
-                      <span>Дата создания: ${new Date(
-                        task.createdAt
-                      ).toLocaleDateString()}</span><br>
-                      <span>Дата конца: ${new Date(
-                        task.dead_line
-                      ).toLocaleDateString()}</span>
-                    </p>
-                  </div>
-                </div>
-              `
-            )
-            .join("")}
-        </div>
-        <div class="homework-section">
-          <h2>Истёкшие домашние задания</h2>
-          ${expiredTasks
-            .map(
-              (task) => `
-                <div class="homework-item">
-                  <div class="homework-details">
-                    <h3>${
-                      task.subject ? task.subject.name : "Без предмета"
-                    }</h3>
-                    <p class="homework-task"><em>${task.name}</em></p>
-                    <p class="homework-description">${task.desc}</p>
-                      <span>Дата создания: ${new Date(
-                        task.createdAt
-                      ).toLocaleDateString()}</span><br>
-                      <span>Дата конца: ${new Date(
-                        task.dead_line
-                      ).toLocaleDateString()}</span>
-                    </p>
-                  </div>
-                </div>
-              `
-            )
-            .join("")}
-        </div>
-      `;
+            <h1>Домашнее задание</h1>
+            <div class="homework-header">
+                <h1>Текущие домашние задания</h1>
+            </div>
+            <div class="homework-section">
+                <h2>Текущие домашние задания</h2>
+                ${currentTasks
+                  .map(
+                    (task) => `
+                    <div class="homework-item">
+                        <div class="homework-details">
+                            <h3>${
+                              task.subject ? task.subject.name : "Без предмета"
+                            }</h3>
+                            <p class="homework-task"><em>${task.name}</em></p>
+                            <p class="homework-description">${task.desc}</p>
+                            <input type="file" id="file-${
+                              task.id
+                            }" class="file-input" />
+                            <button class="view-works-button" data-task-id="${
+                              task.id
+                            }">Загрузить решение</button>
+                            <p class="homework-dates">
+                                <span>Дата создания: ${new Date(
+                                  task.createdAt
+                                ).toLocaleDateString()}</span><br>
+                                <span>Дата конца: ${new Date(
+                                  task.dead_line
+                                ).toLocaleDateString()}</span>
+                            </p>
+                        </div>
+                    </div>
+                `
+                  )
+                  .join("")}
+            </div>
+            <div class="homework-section">
+                  <h2>Выполненные домашние задания</h2>
+                  ${doneTasks.map(
+                    (task) => `
+                        <div class="homework-item">
+                        <div class="homework-details">
+                            <h3>${
+                              task.subject ? task.subject.name : "Без предмета"
+                            }</h3>
+                            <p class="homework-task"><em>${task.name}</em></p>
+                            <p class="homework-description">${task.desc}</p>
+                            <p class="homework-dates">
+                                <span>Дата создания: ${new Date(
+                                  task.createdAt
+                                ).toLocaleDateString()}</span><br>
+                                <span>Дата конца: ${new Date(
+                                  task.dead_line
+                                ).toLocaleDateString()}</span>
+                            </p>
+                        </div>
+                    </div>
+                        `
+                  )}
+            </div>
+            <div class="homework-section">
+                <h2>Истёкшие домашние задания</h2>
+                ${expiredTasks
+                  .map(
+                    (task) => `
+                    <div class="homework-item">
+                        <div class="homework-details">
+                            <h3>${
+                              task.subject ? task.subject.name : "Без предмета"
+                            }</h3>
+                            <p class="homework-task"><em>${task.name}</em></p>
+                            <p class="homework-description">${task.desc}</p>
+                            <p class="homework-dates">
+                                <span>Дата создания: ${new Date(
+                                  task.createdAt
+                                ).toLocaleDateString()}</span><br>
+                                <span>Дата конца: ${new Date(
+                                  task.dead_line
+                                ).toLocaleDateString()}</span>
+                            </p>
+                        </div>
+                    </div>
+                `
+                  )
+                  .join("")}
+            </div>
+
+
+        `;
+
+    // Добавляем обработчик событий для всех кнопок "Загрузить решение"
+    document.querySelectorAll(".view-works-button").forEach((button) => {
+      button.addEventListener("click", async function () {
+        const taskId = this.getAttribute("data-task-id");
+        await downloadSolution(taskId);
+      });
+    });
+  }
+
+  async function fetchSolution(taskId) {
+    const token = localStorage.getItem("accessToken"); // Получение токена из localStorage
+    const fileInput = document.getElementById(`file-${taskId}`);
+    const file = fileInput.files[0];
+
+    if (!file) {
+      alert("Пожалуйста, выберите файл для загрузки.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("task_id", taskId);
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/api/solution/create`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `${token}`,
+          },
+          body: formData,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status}`);
+      } else {
+        alert("Файл успешно загружен");
+        renderHomeworkPage();
+      }
+
+      return await response.json();
+    } catch (error) {
+      console.error("Ошибка при попытке загрузить работу:", error);
+    }
+  }
+
+  async function downloadSolution(taskId) {
+    const tasks = await fetchSolution(taskId);
+    // Обработка данных решения
   }
 
   homeworkLink.addEventListener("click", async function (event) {
@@ -114,9 +201,9 @@ document.addEventListener("DOMContentLoaded", function () {
   gradesLink.addEventListener("click", function (event) {
     event.preventDefault();
     mainContent.innerHTML = `
-        <h1>Мои оценки</h1>
-        <p>Здесь будет отображаться список ваших оценок.</p>
-      `;
+            <h1>Мои оценки</h1>
+            <p>Здесь будет отображаться список ваших оценок.</p>
+        `;
   });
 
   renderHomeworkPage();
