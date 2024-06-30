@@ -1,250 +1,270 @@
 body {
-    font-family: 'Montserrat', sans-serif;
-    margin: 0;
-    display: flex;
-    height: 100vh;
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  display: flex;
+  height: 100vh;
 }
 
 header {
-    width: 100%;
-    background-color: #3498db;
-    color: white;
-    display: flex;
-    align-items: center;
-    padding: 10px 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
+  width: 100%;
+  background-color: #3498db;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
 .header-title {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .burger-menu {
-    font-size: 24px;
-    cursor: pointer;
-    display: none;
+  font-size: 24px;
+  cursor: pointer;
+  display: none;
 }
 
 .sidebar {
-    width: 200px;
-    background-color: #f0f0f0;
-    padding-top: 60px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-    position: fixed;
-    top: 0;
-    bottom: 0;
+  width: 200px;
+  background-color: #f0f0f0;
+  padding-top: 60px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  bottom: 0;
 }
 
 .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .sidebar ul li {
-    margin: 20px 0;
-    padding: 10px;
+  margin: 20px 0;
+  padding: 10px;
 }
 
 .sidebar ul li a {
-    text-decoration: none;
-    color: #3498db;
-    font-weight: bold;
-    display: block;
-    padding: 10px;
+  text-decoration: none;
+  color: #3498db;
+  font-weight: bold;
+  display: block;
+  padding: 10px;
 }
 
 .sidebar ul li a:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
 
 main {
-    flex-grow: 1;
-    margin-left: 220px; /* Добавлен отступ от бокового меню */
-    padding: 80px 20px 20px 20px;
-    background-color: #fff;
-    overflow: auto;
+  flex-grow: 1;
+  margin-left: 220px; /* Добавлен отступ от бокового меню */
+  padding: 80px 20px 20px 20px;
+  background-color: #fff;
+  overflow: auto;
 }
 
 .homework-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
 }
 
 .add-homework-button {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .add-homework-button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
 .homework-section {
-    background-color: #f9f9f9;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .homework-item {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding-left: 30px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 .homework-details {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .homework-task {
-    font-size: 16px;
-    font-style: italic;
-    color: #555;
+  font-size: 16px;
+  font-style: italic;
+  color: #555;
 }
 
 .homework-description {
-    font-size: 14px;
-    margin: 10px 0;
+  font-size: 14px;
+  margin: 10px 0;
 }
 
 .view-works-button {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px; /* Увеличен размер кнопки */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px; /* Увеличен размер кнопки */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .view-works-button:hover {
-    background-color: #2980b9;
+  background-color: #2980b9;
 }
 
 .homework-dates {
-    font-size: 12px;
-    color: #888;
-    text-align: left;
-    margin-top: 10px; /* Добавлен отступ сверху */
+  font-size: 12px;
+  color: #888;
+  text-align: left;
+  margin-top: 10px; /* Добавлен отступ сверху */
 }
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 5px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .form-group input[type="text"],
 .form-group input[type="date"],
 .form-group select,
 .form-group textarea {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
 }
 
 .form-group textarea {
-    resize: vertical;
+  resize: vertical;
 }
 
 .checkbox-container {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.checkbox-item input {
+  margin-right: 10px;
+}
+
+button {
+  background-color: #3498db;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.work-item {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  padding-left: 30px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #2980b9;
+}
+
+@media (max-width: 768px) {
+  .burger-menu {
+    display: block;
+  }
+
+  .sidebar {
+    display: none;
+    width: 100%;
+    height: calc(100vh - 50px);
+    position: fixed;
+    z-index: 999;
+    top: 50px;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar ul li {
+    margin: 0;
+    padding: 10px 20px;
+  }
+
+  main {
+    margin-left: 0;
+    padding: 70px 20px 20px 20px;
+  }
+
+  .show-menu {
+    display: block !important;
+  }
+
+  .checkbox-container {
     max-height: 150px;
     overflow-y: auto;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
     box-sizing: border-box;
-}
+  }
 
-.checkbox-item {
+  .checkbox-item {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
-}
+  }
 
-.checkbox-item input {
+  .checkbox-item input {
     margin-right: 10px;
+  }
 }
-
-button {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-button:hover {
-    background-color: #2980b9;
-}
-
-@media (max-width: 768px) {
-    .burger-menu {
-        display: block;
-    }
-
-    .sidebar {
-        display: none;
-        width: 100%;
-        height: calc(100vh - 50px);
-        position: fixed;
-        z-index: 999;
-        top: 50px;
-    }
-
-    .sidebar ul {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .sidebar ul li {
-        margin: 0;
-        padding: 10px 20px;
-    }
-
-    main {
-        margin-left: 0;
-        padding: 70px 20px 20px 20px;
-    }
-
-    .show-menu {
-        display: block !important;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
