@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const gradesLink = document.getElementById("grades-link");
   const mainContent = document.getElementById("main-content");
   const token = localStorage.getItem("accessToken");
+  const scheduleLink = document.getElementById("schedule-link");
 
   if (!token) {
     console.error("Токен не найден в localStorage");

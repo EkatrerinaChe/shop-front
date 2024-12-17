@@ -216,6 +216,30 @@ button:hover {
   background-color: #2980b9;
 }
 
+/* Например, чтобы событие не выходило за клетку */
+.fc-event {
+  max-width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Стили для всплывающего описания */
+.event-tooltip {
+  position: absolute;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: none; /* Изначально скрыто */
+  z-index: 1000;
+  max-width: 300px;
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+}
+
 @media (max-width: 768px) {
   .burger-menu {
     display: block;
