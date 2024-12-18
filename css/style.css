@@ -291,4 +291,40 @@ button:hover {
   .checkbox-item input {
     margin-right: 10px;
   }
+  .grades-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .grades-table th,
+  .grades-table td {
+    border: 3px solid #ddd;
+    padding: 10px;
+    text-align: left;
+  }
+
+  .grades-table th {
+    background-color: #f0f0f0;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .grades-table td {
+    background-color: #fafafa;
+  }
+
+  #view-grades-btn {
+    margin: 20px 0;
+    padding: 10px 20px;
+    background-color: #1a8edd;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+
+  #view-grades-btn:hover {
+    background-color: #1e6c99;
+  }
 }

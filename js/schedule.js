@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
             startDate.setHours(hour, minute);
 
             const endDate = new Date(startDate);
-            endDate.setHours(startDate.getHours() + 1);
+            endDate.setHours(startDate.getHours() + 1, 45);
 
             return {
               title: `${event.subjectName} - ${event.groupName}`,

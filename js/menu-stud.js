@@ -205,7 +205,79 @@ document.addEventListener("DOMContentLoaded", function () {
     const markedSolution = await getMarkedMySolution();
 
     mainContent.innerHTML = `
-            <h1>Мои оценки</h1>
+            <h1>Мои оценки<button id="view-grades-btn">Просмотреть успеваемость</button></h1>
+            <div class="grades-table" style="display:none">
+            <style>
+
+    .grades-table table {
+      width: 100%;
+      border-collapse: collapse; /* Убирает двойные линии между ячейками */
+      margin-top: 20px;
+    }
+
+    .grades-table th, .grades-table td {
+      border: 3px solid #ddd; /* Линии между ячейками */
+      padding: 10px; /* Отступы внутри ячеек */
+      text-align: left; /* Выравнивание текста по левому краю */
+    }
+
+    .grades-table th {
+      background-color: #f0f0f0; /* Светло-серый фон для заголовков */
+      color: #333; /* Темный текст для контраста */
+      font-weight: bold; /* Сделать текст заголовка жирным */
+    }
+
+    .grades-table td {
+      background-color: #fafafa; /* Светло-серый фон для данных */
+    }
+
+    #view-grades-btn {
+      margin: 20px 0;
+      padding: 10px 20px;
+      background-color: #1a8edd; /* Зеленый цвет кнопки */
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    #view-grades-btn:hover {
+      background-color: #1e6c99; /* Темно-зеленый при наведении */
+    }
+  </style>
+      <table>
+        <thead>
+          <tr>
+            <th>Предмет</th>
+            <th>Задание</th>
+            <th>Оценка</th>
+            <th>Комментарий</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${markedSolution
+            .map(
+              (solution) => `
+              <tr>
+                <td>${
+                  solution.task.subject
+                    ? solution.task.subject.name
+                    : "Без предмета"
+                }</td>
+                <td>${solution.task.name}</td>
+                <td>${solution.mark}</td>
+                <td>${solution.comment || "Без комментариев"}</td>
+                <td>${new Date(
+                  solution.task.createdAt
+                ).toLocaleDateString()}</td>
+              </tr>
+            `
+            )
+            .join("")}
+        </tbody>
+      </table>
+    </div>
             <p>Здесь будет отображаться список ваших оценок.</p>
             <div class="homework-section">
             ${markedSolution.map(
@@ -237,6 +309,13 @@ document.addEventListener("DOMContentLoaded", function () {
             )}
             </div>
         `;
+    document
+      .getElementById("view-grades-btn")
+      .addEventListener("click", function () {
+        const gradesTable = document.querySelector(".grades-table");
+        gradesTable.style.display =
+          gradesTable.style.display === "none" ? "block" : "none";
+      });
   });
 
   async function getMarkedMySolution() {
