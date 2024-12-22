@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>База знаний</title>
+    <link rel="stylesheet" href="css/article.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap&subset=cyrillic"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="buttons-container">
+      <!-- Кнопки будут добавлены сюда -->
+    </div>
+    <div id="articles-container">
+      <!-- Здесь будут динамически добавляться карточки статей -->
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="create-article-modal" class="modal">
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <h1>Создать статью</h1>
+        <form id="article-form">
+          <div>
+            <label for="article-title">Название статьи:</label>
+            <input
+              type="text"
+              id="article-title"
+              placeholder="Введите название статьи"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="article-subject">Тема статьи:</label>
+            <input
+              type="text"
+              id="article-subject"
+              placeholder="Введите тему статьи"
+              required
+            />
+          </div>
+
+          <div>
+            <label for="block-type">Тип блока:</label>
+            <select id="block-type">
+              <option value="text">Текст</option>
+              <option value="title">Заголовок</option>
+              <option value="subtitle">Подзаголовок</option>
+              <option value="link">Ссылка</option>
+            </select>
+          </div>
+          <div>
+            <label for="block-content">Контент:</label>
+            <input
+              type="text"
+              id="block-content"
+              placeholder="Введите контент..."
+            />
+          </div>
+          <button type="button" id="add-block">Добавить блок</button>
+
+          <div id="blocks-container">
+            <!-- Здесь будут отображаться добавленные блоки -->
+          </div>
+
+          <button type="submit">Отправить статью</button>
+        </form>
+      </div>
+    </div>
+
+    <script src="js/article.js"></script>
+  </body>
+</html>
