@@ -205,7 +205,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const markedSolution = await getMarkedMySolution();
 
     mainContent.innerHTML = `
-            <h1>Мои оценки<button id="view-grades-btn">Просмотреть успеваемость</button></h1>
+            <h1>Мои оценки</h1>
+            <button id="view-grades-btn">Просмотреть успеваемость</button>
             <div class="grades-table" style="display:none">
             <style>
 
@@ -278,6 +279,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </tbody>
       </table>
     </div>
+            
             <p>Здесь будет отображаться список ваших оценок.</p>
             <div class="homework-section">
             ${markedSolution.map(

@@ -4,6 +4,7 @@ async function renderPage() {
   fetchArticles(); // Загружаем статьи
   setupModal();
 }
+
 async function fetchArticles() {
   try {
     const token = localStorage.getItem("accessToken");
@@ -35,7 +36,7 @@ function displayArticles(articles) {
 
     const cardTitle = document.createElement("div");
     cardTitle.classList.add("card-title");
-    cardTitle.textContent = article.title;
+    cardTitle.textContent = article.subject;
 
     const cardAuthor = document.createElement("div");
     cardAuthor.classList.add("card-author");
@@ -46,6 +47,7 @@ function displayArticles(articles) {
     container.appendChild(articleLink);
   });
 }
+
 // Функция для получения информации о пользователе
 async function getUserInfo() {
   const token = localStorage.getItem("accessToken");
@@ -62,7 +64,7 @@ async function getUserInfo() {
     throw new Error("Ошибка при получении данных пользователя");
   }
 
-  return response.json(); // .json() вернет уже разобранный объект
+  return response.json();
 }
 
 // Функция для создания кнопок в зависимости от роли пользователя
@@ -72,17 +74,17 @@ async function createBtns() {
 
   if (user.roles === "TEACHER") {
     htmlContent += `
-          <a href="teacher.html">
-            <button>Вернуться на главную страницу</button>
-          </a>
-          <button id="create-article-btn">Создать статью</button>
-        `;
+            <a href="teacher.html">
+              <button>Вернуться на главную страницу</button>
+            </a>
+            <button id="create-article-btn">Создать статью</button>
+          `;
   } else {
     htmlContent += `
-          <a href="student.html">
-            <button>Вернуться на главную страницу</button>
-          </a>
-        `;
+            <a href="student.html">
+              <button>Вернуться на главную страницу</button>
+            </a>
+          `;
   }
 
   const container = document.getElementById("buttons-container");
@@ -130,12 +132,14 @@ document.getElementById("add-block").addEventListener("click", () => {
   const blockElement = document.createElement("div");
   blockElement.classList.add("block");
   blockElement.innerHTML = `
-      <p><strong>Тип блока:</strong> ${getBlockTypeName(block.type)}</p>
-      <p><strong>Контент:</strong> ${block.content}</p>
-      <button class="remove-block">Удалить блок</button>
+      <span class="remove-icon">-</span>
+      <div>
+        <p>Тип блока: ${getBlockTypeName(block.type)}</p>
+        <p>Контент: ${block.content}</p>
+      </div>
     `;
 
-  blockElement.querySelector(".remove-block").addEventListener("click", () => {
+  blockElement.querySelector(".remove-icon").addEventListener("click", () => {
     blockElement.remove();
   });
 
@@ -166,9 +170,9 @@ document.getElementById("article-form").addEventListener("submit", (event) => {
   });
 
   const articleData = {
-    title: document.getElementById("article-title").value, // Добавляем поле для названия
-    subject: document.getElementById("article-subject").value, // Добавляем поле для темы
-    content: JSON.stringify(blocks), // Преобразуем блоки в строку JSON
+    title: document.getElementById("article-title").value,
+    subject: document.getElementById("article-subject").value,
+    content: JSON.stringify(blocks),
   };
 
   sendArticleData(articleData);
@@ -190,7 +194,7 @@ async function sendArticleData(data) {
 
     if (response.ok) {
       alert("Статья успешно создана!");
-      window.location.reload(); // Перезагружаем страницу после успешной отправки
+      window.location.reload();
     } else {
       alert("Ошибка при создании статьи");
     }
@@ -199,6 +203,14 @@ async function sendArticleData(data) {
     alert("Произошла ошибка при отправке статьи");
   }
 }
+
+const textarea = document.getElementById("block-content");
+
+textarea.addEventListener("input", function () {
+  this.style.height = "auto";
+
+  this.style.height = this.scrollHeight + "px";
+});
 
 // Загружаем статьи при загрузке страницы
 window.onload = renderPage;

@@ -25,21 +25,21 @@
         <h1>Создать статью</h1>
         <form id="article-form">
           <div>
-            <label for="article-title">Название статьи:</label>
+            <label for="article-title">Название предмета:</label>
             <input
               type="text"
               id="article-title"
-              placeholder="Введите название статьи"
+              placeholder="Введите название предмета"
               required
             />
           </div>
 
           <div>
-            <label for="article-subject">Тема статьи:</label>
+            <label for="article-subject">Заголовок:</label>
             <input
               type="text"
               id="article-subject"
-              placeholder="Введите тему статьи"
+              placeholder="Введите заголовок статьи"
               required
             />
           </div>
@@ -55,17 +55,17 @@
           </div>
           <div>
             <label for="block-content">Контент:</label>
-            <input
+            <textarea
               type="text"
               id="block-content"
-              placeholder="Введите контент..."
-            />
+              placeholder="Введите содержимое блока..."
+            ></textarea>
           </div>
-          <button type="button" id="add-block">Добавить блок</button>
+          <button type="button" id="add-block" class="btn1">
+            Добавить блок
+          </button>
 
-          <div id="blocks-container">
-            <!-- Здесь будут отображаться добавленные блоки -->
-          </div>
+          <div id="blocks-container"></div>
 
           <button type="submit">Отправить статью</button>
         </form>

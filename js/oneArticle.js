@@ -9,55 +9,99 @@ async function renderArticle() {
 
   const articleData = await fetchArticleById(articleId);
   console.log(articleData);
-
-  if (articleData && articleData.content) {
-    // Парсим content как JSON строку, если это строка
-    let content = articleData.content;
-    if (typeof content === "string") {
-      try {
-        content = JSON.parse(content); // Преобразуем строку JSON в объект
-      } catch (error) {
-        console.error("Ошибка при парсинге JSON:", error);
-        return;
-      }
+  if (articleData) {
+    const articleContainer = document.getElementById("article-container");
+    if (!articleContainer) {
+      console.error("Контейнер #article-container не найден в HTML.");
+      return;
+    }
+    //console.log(articleData.article.title);
+    // Заголовок статьи
+    if (articleData.article.title) {
+      const titleElement = document.createElement("h1");
+      titleElement.textContent = articleData.article.title;
+      articleContainer.appendChild(titleElement);
+    } else {
+      console.warn("Заголовок статьи отсутствует.");
+    }
+    //console.log(articleData.article.subject);
+    // Предмет статьи
+    if (articleData.article.subject) {
+      const subjectElement = document.createElement("h2");
+      subjectElement.textContent = `Предмет: ${articleData.article.subject}`;
+      subjectElement.style.fontSize = "18px";
+      subjectElement.style.color = "#555";
+      articleContainer.appendChild(subjectElement);
+    } else {
+      console.warn("Предмет статьи отсутствует.");
+    }
+    //console.log(articleData.article.createdAt);
+    // Дата создания статьи
+    if (articleData.article.createdAt) {
+      const dateElement = document.createElement("p");
+      const formattedDate = new Date(
+        articleData.article.createdAt
+      ).toLocaleDateString("ru-RU", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      });
+      dateElement.textContent = `Дата создания: ${formattedDate}`;
+      dateElement.style.fontSize = "14px";
+      dateElement.style.color = "#888";
+      articleContainer.appendChild(dateElement);
+    } else {
+      console.warn("Дата создания статьи отсутствует.");
     }
 
-    // Убедимся, что content является массивом
-    if (Array.isArray(content)) {
-      const articleContainer = document.getElementById("article-container");
-
-      content.forEach((block) => {
-        let blockElement;
-
-        // В зависимости от типа блока, создаем соответствующий элемент
-        switch (block.type) {
-          case "title":
-            blockElement = document.createElement("h1");
-            blockElement.textContent = block.content;
-            break;
-          case "subtitle":
-            blockElement = document.createElement("h2");
-            blockElement.textContent = block.content;
-            break;
-          case "text":
-            blockElement = document.createElement("p");
-            blockElement.textContent = block.content;
-            break;
-          case "link":
-            blockElement = document.createElement("a");
-            blockElement.href = block.content;
-            blockElement.textContent = `Перейти по ссылке: ${block.content}`;
-            break;
-          default:
-            blockElement = document.createElement("div");
-            blockElement.textContent = "Неизвестный блок";
+    // Основное содержимое
+    if (articleData.content) {
+      let content = articleData.content;
+      if (typeof content === "string") {
+        try {
+          content = JSON.parse(content); // Преобразуем строку JSON в объект
+        } catch (error) {
+          console.error("Ошибка при парсинге JSON:", error);
+          return;
         }
+      }
 
-        // Добавляем блок на страницу
-        articleContainer.appendChild(blockElement);
-      });
+      if (Array.isArray(content)) {
+        content.forEach((block) => {
+          let blockElement;
+
+          switch (block.type) {
+            case "title":
+              blockElement = document.createElement("h1");
+              blockElement.textContent = block.content;
+              break;
+            case "subtitle":
+              blockElement = document.createElement("h2");
+              blockElement.textContent = block.content;
+              break;
+            case "text":
+              blockElement = document.createElement("p");
+              blockElement.textContent = block.content;
+              break;
+            case "link":
+              blockElement = document.createElement("a");
+              blockElement.href = block.content;
+              blockElement.textContent = `Перейти по ссылке: ${block.content}`;
+              blockElement.style.color = "#1e88e5";
+              blockElement.style.textDecoration = "underline";
+              break;
+            default:
+              blockElement = document.createElement("div");
+              blockElement.textContent = "Неизвестный блок";
+          }
+
+          articleContainer.appendChild(blockElement);
+        });
+      } else {
+        console.error("Ошибка: 'content' не является массивом");
+      }
     } else {
-      console.error("Ошибка: 'content' не является массивом");
+      console.warn("Основное содержимое статьи отсутствует.");
     }
   } else {
     console.error("Ошибка: данные статьи отсутствуют");
@@ -82,9 +126,7 @@ async function fetchArticleById(id) {
       throw new Error("Не удалось загрузить статью");
     }
 
-    const article = await response.json();
-
-    return article;
+    return await response.json();
   } catch (error) {
     console.error("Ошибка при загрузке статьи:", error);
     alert("Произошла ошибка при загрузке статьи");
